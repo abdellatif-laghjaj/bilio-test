@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readCategories() {
+        initCategories();
         dbRef.child("categories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -49,5 +50,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //init data
+    private void initCategories() {
+        ArrayList<Category> categories = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            String id = dbRef.push().getKey();
+            Category category = new Category(id, "Category #" + i);
+        }
+
+        for (Category category : categories) {
+            dbRef.child("categories").child(category.getId()).setValue(category);
+        }
     }
 }
