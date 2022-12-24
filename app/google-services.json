@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "937143475733",
+    "project_id": "biblio-22265",
+    "storage_bucket": "biblio-22265.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937143475733:android:7ea4b158a7589cd01db81c",
+        "android_client_info": {
+          "package_name": "com.abdellatif.biblio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937143475733-3kh5nrradenr91gkjfjl0rptlif0gh9g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYCfMT-HmG1VpHux4PuuhHdAfNNcS_IJs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937143475733-3kh5nrradenr91gkjfjl0rptlif0gh9g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
