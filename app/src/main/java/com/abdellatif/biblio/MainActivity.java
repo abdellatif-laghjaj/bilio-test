@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseDatabase database;
     private DatabaseReference dbRef;
     private ArrayList<Category> categories;
+    private String randomCategory = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,5 +68,38 @@ public class MainActivity extends AppCompatActivity {
             categories.add(category);
             dbRef.child("categories").child(id).setValue(category);
         }
+    }
+
+    private void initBooks() {
+        ArrayList<Book> books = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            String id = dbRef.push().getKey();
+            Book book = new Book(id, "Author #" + i, "Book title #" + 1, randomCategory);
+            books.add(book);
+            dbRef.child("books").child(id).setValue(book);
+        }
+    }
+
+    //get random category from database
+    private String getRandomCategory() {
+        dbRef.child("categories").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                ArrayList<Category> categories = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Category category = dataSnapshot.getValue(Category.class);
+                    categories.add(category);
+                }
+                int random = (int) (Math.random() * categories.size());
+                randomCategory = categories.get(random).getId();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+        return randomCategory;
     }
 }
