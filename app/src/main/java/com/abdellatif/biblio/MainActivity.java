@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -37,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void readCategories() {
-        initCategories();
-        initBooks();
+        initData();
         dbRef.child("categories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -61,49 +61,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //init data
-    private void initCategories() {
+    private void initData() {
         ArrayList<Category> categories = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            String id = dbRef.push().getKey();
-            Category category = new Category(id, "Category #" + i);
-            categories.add(category);
-            dbRef.child("categories").child(id).setValue(category);
-        }
-    }
+        categories.add(new Category("1", "Romance"));
+        categories.add(new Category("2", "Horror"));
+        categories.add(new Category("3", "Science Fiction"));
+        categories.add(new Category("4", "Fantasy"));
+        categories.add(new Category("5", "Mystery"));
+        categories.add(new Category("6", "Thriller"));
+        categories.add(new Category("7", "Drama"));
+        categories.add(new Category("8", "Action"));
+        categories.add(new Category("9", "Adventure"));
+        categories.add(new Category("10", "Historical Fiction"));
 
-    private void initBooks() {
+        for (Category category : categories) {
+            dbRef.child("categories").child(category.getId()).setValue(category);
+        }
+
         ArrayList<Book> books = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            String id = dbRef.push().getKey();
-            randomCategory = getRandomCategory();
-            Book book = new Book(id, "Author #" + i, "Book title #" + 1, randomCategory);
-            books.add(book);
-            dbRef.child("books").child(id).setValue(book);
+        for (int i = 0; i < 100; i++) {
+            randomCategory = categories.get((int) (Math.random() * categories.size())).getId();
+            books.add(new Book(String.valueOf(i), "Book " + i, "Author " + i, randomCategory));
+            dbRef.child("books").child(String.valueOf(i)).setValue(books.get(i));
         }
-    }
-
-    //get random category from database
-    private String getRandomCategory() {
-        dbRef.child("categories").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                ArrayList<Category> categories = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Category category = dataSnapshot.getValue(Category.class);
-                    categories.add(category);
-                }
-                int random = (int) (Math.random() * categories.size());
-                if (categories.size() > 0) {
-                    randomCategory = categories.get(random).getId();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
-
-        return randomCategory;
     }
 }
