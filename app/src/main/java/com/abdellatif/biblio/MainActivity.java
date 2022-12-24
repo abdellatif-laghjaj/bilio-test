@@ -1,6 +1,7 @@
 package com.abdellatif.biblio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -29,10 +30,14 @@ public class MainActivity extends AppCompatActivity {
         dbRef = database.getReference();
 
         category_list = findViewById(R.id.category_list);
+
+        initCategories();
+
+        readCategories();
     }
 
-    private void readCategories() {
-        initCategories();
+    private void readCategories()
+    {
         dbRef.child("categories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -43,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 categoryAdapter = new CategoryAdapter(categories, MainActivity.this);
                 category_list.setAdapter(categoryAdapter);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(MainActivity.this);
+                category_list.setLayoutManager(layoutManager);
             }
 
             @Override
