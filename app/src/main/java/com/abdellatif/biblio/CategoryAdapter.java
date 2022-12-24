@@ -37,8 +37,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
         //click listener on view image
         holder.view_iv.setOnClickListener(v -> {
             Intent intent = new Intent(context, BooksActivity.class);
-            intent.putExtra("category", item.getName());
+            intent.putExtra("category_id", item.getId());
             context.startActivity(intent);
+
         });
     }
 

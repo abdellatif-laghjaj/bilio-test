@@ -45,7 +45,7 @@ public class BooksActivity extends AppCompatActivity {
                 books = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Book book = dataSnapshot.getValue(Book.class);
-                    if (book.getCategory_id().equals(category_id)) {
+                    if (book.getCategoryId().equals(category_id)) {
                         books.add(book);
                     }
                 }
