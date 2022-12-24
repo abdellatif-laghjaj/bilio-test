@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +24,8 @@ public class BooksActivity extends AppCompatActivity {
     private RecyclerView books_list;
     private ArrayList<Book> books;
     private BookAdapter bookAdapter;
+    private Button search_btn;
+    private TextInputEditText search_input;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,23 @@ public class BooksActivity extends AppCompatActivity {
         Log.d("category_id", category_id);
 
         books_list = findViewById(R.id.books_list);
+        search_btn = findViewById(R.id.search_btn);
+        search_input = findViewById(R.id.search_input);
+
+        ArrayList<Book> fileteredBooks = new ArrayList<>();
+
+        search_btn.setOnClickListener(v -> {
+            String search = search_input.getText().toString();
+            for (Book book : books) {
+                if (book.getTitle().toLowerCase().contains(search.toLowerCase())) {
+                    fileteredBooks.add(book);
+                }
+                if (search.isEmpty()) {
+                    readBooks();
+                }
+            }
+            bookAdapter.setBooks(fileteredBooks);
+        });
 
         readBooks();
     }

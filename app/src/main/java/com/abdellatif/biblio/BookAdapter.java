@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> {
@@ -37,6 +38,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.MyViewHolder> 
     @Override
     public int getItemCount() {
         return books.size();
+    }
+
+    public void setBooks(ArrayList<Book> fileteredBooks) {
+        this.books = fileteredBooks;
+        notifyDataSetChanged();
     }
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
