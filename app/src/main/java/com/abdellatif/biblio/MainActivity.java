@@ -82,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 100; i++) {
             randomCategory = categories.get((int) (Math.random() * categories.size())).getId();
             books.add(new Book(String.valueOf(i), "Book " + i, "Author " + i, randomCategory));
-            dbRef.child("books").child(String.valueOf(i)).setValue(books.get(i));
+        }
+
+        for (Book book : books) {
+            dbRef.child("books").child(book.getId()).setValue(book);
         }
     }
 }
