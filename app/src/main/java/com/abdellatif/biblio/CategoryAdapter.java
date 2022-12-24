@@ -1,6 +1,7 @@
 package com.abdellatif.biblio;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,15 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Category item = categories.get(position);
+
+        holder.categoryName.setText(item.getName());
+
+        //click listener
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(context, BooksActivity.class);
+            intent.putExtra("category_id", item.getId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
