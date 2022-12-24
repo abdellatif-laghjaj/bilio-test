@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +32,8 @@ public class BooksActivity extends AppCompatActivity {
         dbRef = database.getReference();
 
         category_id = getIntent().getStringExtra("category_id");
+
+        Log.d("category_id", category_id);
 
         books_list = findViewById(R.id.books_list);
 
