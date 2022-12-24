@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,10 +34,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
         holder.categoryName.setText(item.getName());
 
-        //click listener
-        holder.itemView.setOnClickListener(v -> {
+        //click listener on view image
+        holder.view_iv.setOnClickListener(v -> {
             Intent intent = new Intent(context, BooksActivity.class);
-            intent.putExtra("category_id", item.getId());
+            intent.putExtra("category", item.getName());
             context.startActivity(intent);
         });
     }
@@ -48,10 +49,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyView
 
     static class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView categoryName;
+        private ImageView view_iv;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             categoryName = itemView.findViewById(R.id.category_name);
+            view_iv = itemView.findViewById(R.id.view_iv);
         }
     }
 }

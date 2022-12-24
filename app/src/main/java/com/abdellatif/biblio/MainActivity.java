@@ -64,11 +64,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < 20; i++) {
             String id = dbRef.push().getKey();
             Category category = new Category(id, "Category #" + i);
-        }
-
-        //insert data to firebase
-        for (Category category : categories) {
-            dbRef.child("categories").child(category.getId()).setValue(category);
+            categories.add(category);
+            dbRef.child("categories").child(id).setValue(category);
         }
     }
 }
