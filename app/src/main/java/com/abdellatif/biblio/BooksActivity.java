@@ -1,6 +1,7 @@
 package com.abdellatif.biblio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -20,6 +21,7 @@ public class BooksActivity extends AppCompatActivity {
     private RecyclerView books_list;
     private ArrayList<Book> books;
     private BookAdapter bookAdapter;
+    private String randomCategory = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class BooksActivity extends AppCompatActivity {
 
 
     private void readBooks() {
+        initBooks();
         dbRef.child("books").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -53,5 +56,37 @@ public class BooksActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    //init data
+    private void initBooks() {
+        ArrayList<Book> books = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            String id = dbRef.push().getKey();
+            Book book = new Book(id, "Author #" + i, "Book title #" + 1, randomCategory);
+        }
+    }
+
+    //get random category from database
+    private String getRandomCategory() {
+        dbRef.child("categories").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                ArrayList<Category> categories = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Category category = dataSnapshot.getValue(Category.class);
+                    categories.add(category);
+                }
+                int random = (int) (Math.random() * categories.size());
+                randomCategory = categories.get(random).getId();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+
+        return randomCategory;
     }
 }

@@ -1,6 +1,7 @@
 package com.abdellatif.biblio;
 
 public class Book {
+    private String id;
     private String title;
     private String author;
     private String category_id;
@@ -8,10 +9,19 @@ public class Book {
     public Book() {
     }
 
-    public Book(String title, String author, String category) {
+    public Book(String id, String title, String author, String category) {
+        this.id = id;
         this.title = title;
         this.author = author;
         this.category_id = category;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
