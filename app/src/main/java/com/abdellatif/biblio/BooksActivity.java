@@ -33,6 +33,8 @@ public class BooksActivity extends AppCompatActivity {
         category_id = getIntent().getStringExtra("category_id");
 
         books_list = findViewById(R.id.books_list);
+
+        readBooks();
     }
 
 
@@ -47,6 +49,8 @@ public class BooksActivity extends AppCompatActivity {
                 }
                 bookAdapter = new BookAdapter(books, BooksActivity.this);
                 books_list.setAdapter(bookAdapter);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(BooksActivity.this);
+                books_list.setLayoutManager(layoutManager);
             }
 
             @Override

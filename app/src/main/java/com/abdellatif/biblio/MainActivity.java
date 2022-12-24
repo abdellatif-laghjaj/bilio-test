@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void readCategories() {
         initCategories();
+        initBooks();
         dbRef.child("categories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -74,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Book> books = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
             String id = dbRef.push().getKey();
+            randomCategory = getRandomCategory();
             Book book = new Book(id, "Author #" + i, "Book title #" + 1, randomCategory);
             books.add(book);
             dbRef.child("books").child(id).setValue(book);
