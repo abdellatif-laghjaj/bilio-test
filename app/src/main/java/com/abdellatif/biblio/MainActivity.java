@@ -93,7 +93,9 @@ public class MainActivity extends AppCompatActivity {
                     categories.add(category);
                 }
                 int random = (int) (Math.random() * categories.size());
-                randomCategory = categories.get(random).getId();
+                if (categories.size() > 0) {
+                    randomCategory = categories.get(random).getId();
+                }
             }
 
             @Override
