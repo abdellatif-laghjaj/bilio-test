@@ -31,13 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
         category_list = findViewById(R.id.category_list);
 
-        initCategories();
 
         readCategories();
     }
 
-    private void readCategories()
-    {
+    private void readCategories() {
+        initCategories();
         dbRef.child("categories").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -67,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             Category category = new Category(id, "Category #" + i);
         }
 
+        //insert data to firebase
         for (Category category : categories) {
             dbRef.child("categories").child(category.getId()).setValue(category);
         }
